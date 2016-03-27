@@ -16,7 +16,7 @@ mongoClient.connect(connectionStr, function(error, db){
     collection.find({}).toArray(function(err, result){
         assert.equal(err, null);
         console.log(result);
+        db.close();
     });
 
-    //db.close();
 });
