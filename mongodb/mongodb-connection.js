@@ -5,14 +5,18 @@
 var mongoClient = require('mongodb').MongoClient,
     assert = require('assert');
 
-var connectionStr = 'mongodb://localhost:27017/pet';
+var connectionStr = 'mongodb://localhost:27017/pet_database';
 
 mongoClient.connect(connectionStr, function(error, db){
     assert.equal(error, null);
     console.log("Server have connected to database.");
     console.log(error);
 
-    //TODO: do some staff
+    var collection = db.collection("pet_collection");
+    collection.find({}).toArray(function(err, result){
+        assert.equal(err, null);
+        console.log(result);
+    });
 
-    db.close();
+    //db.close();
 });
