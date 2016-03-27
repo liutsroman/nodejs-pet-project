@@ -5,6 +5,7 @@
 var mongoClient = require('mongodb').MongoClient,
     assert = require('assert');
 
+//console.log(Users);
 var connectionStr = 'mongodb://localhost:27017/pet_database';
 
 mongoClient.connect(connectionStr, function(error, db){
