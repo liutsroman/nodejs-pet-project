@@ -23,4 +23,17 @@ router.post('/', function(req, res, next){
   });
 });
 
+router.put('/:id', function(req, res){
+  Users.findById(req.params.id, function(err, user){
+    user.name = req.body.name;
+    user.age = req.body.age;
+    user.sex = req.body.sex;
+    user.save(function(err, newUser){
+      if (err)
+        throw err;
+      res.json(newUser);
+    });
+  });
+});
+
 module.exports = router;
