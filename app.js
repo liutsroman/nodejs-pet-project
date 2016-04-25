@@ -5,6 +5,19 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var mongoose = require('mongoose');
+
+var connectionStr = 'mongodb://localhost:27017/pet_database';
+
+mongoose.connect(connectionStr);
+var db = mongoose.connection;
+db.on('error', function(error){
+  console.log(error);
+});
+db.once('open', function(){
+  console.log("Connected correctly to database");
+});
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
