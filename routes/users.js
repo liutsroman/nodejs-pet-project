@@ -1,18 +1,23 @@
 var express = require('express');
-var Users = require('../mongodb/models/userScheme');
+var passport = require('passport');
+var User = require('../models/users/user');
+var Verify    = require('./verify');
 var router = express.Router();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  Users.find({}, function(err, users){
+
+//TODO: get by id method
+//TODO: add comment model
+//TODO: extend user model with comment model
+router.get('/',Verify.verifyOrdinaryUser, function(req, res, next) {
+  User.find({}, function(err, users){
     if (err)
       throw err;
     res.json(users);
   });
 });
 
-router.post('/', function(req, res, next){
-  Users.create(req.body, function(err, user){
+router.post('/', Verify.verifyOrdinaryUser, function(req, res, next){
+  User.create(req.body, function(err, user){
     if (err)
       throw err;
 
@@ -23,11 +28,9 @@ router.post('/', function(req, res, next){
   });
 });
 
-router.put('/:id', function(req, res){
-  Users.findById(req.params.id, function(err, user){
-    user.name = req.body.name;
-    user.age = req.body.age;
-    user.sex = req.body.sex;
+router.put('/:id', Verify.verifyOrdinaryUser, function(req, res){
+  User.findById(req.params.id, function(err, user){
+    user.username = req.body.username;
     user.save(function(err, newUser){
       if (err)
         throw err;
