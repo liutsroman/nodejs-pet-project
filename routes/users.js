@@ -8,6 +8,7 @@ var router = express.Router();
 //TODO: get by id method
 //TODO: add comment model
 //TODO: extend user model with comment model
+
 router.get('/',Verify.verifyOrdinaryUser, function(req, res, next) {
   User.find({}, function(err, users){
     if (err)
